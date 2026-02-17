@@ -10,9 +10,8 @@ const DashbordView = () => {
   })
 
   if(isLoading) return 'Loading...';
-  console.log(data);
 
-  return (
+  if(data) return (
     <>
       <h1 className='text-5xl font-black'>My projects</h1>
       <p className='text-2xl font-light text-gray-500 mt-5'>Manage your projects</p>
@@ -21,6 +20,17 @@ const DashbordView = () => {
         <Link  
           className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors" to={'/projects/create'}>New Project</Link>
       </nav>
+      {data.length ? (
+        <p>Projects</p>
+      ) : (
+        <p className="text-center py-20"> No projects yet {''}
+          <Link 
+            to={'/projects/create'}
+            className="text-fuchsia-500 font-bold"
+            >Create projects</Link>
+
+        </p>
+      )}
     </>
 
   )
