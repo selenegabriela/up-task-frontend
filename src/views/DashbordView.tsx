@@ -69,13 +69,13 @@ const DashbordView = () => {
                                       <Menu.Item>
                                           <Link to={`/projects/${project._id}`}
                                               className='block px-3 py-1 text-sm leading-6 text-gray-900'>
-                                          Ver Proyecto
+                                          View Project
                                           </Link>
                                       </Menu.Item>
                                       <Menu.Item>
                                           <Link to={`/projects/${project._id}/edit`}
                                               className='block px-3 py-1 text-sm leading-6 text-gray-900'>
-                                          Editar Proyecto
+                                          Update Project
                                           </Link>
                                       </Menu.Item>
                                       <Menu.Item>
@@ -84,7 +84,7 @@ const DashbordView = () => {
                                               className='block px-3 py-1 text-sm leading-6 text-red-500'
                                               onClick={() => mutate(project._id)}
                                           >
-                                              Eliminar Proyecto
+                                              Delete Proyect
                                           </button>
                                       </Menu.Item>
                               </Menu.Items>
