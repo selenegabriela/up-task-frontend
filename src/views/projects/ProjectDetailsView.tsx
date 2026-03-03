@@ -26,7 +26,7 @@ const ProjectDetailsView = () => {
             <nav className="my-5 flex gap-3">
                 <button 
                     className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors"
-                onClick={() => navigate('?newTask=true')}>Add Task</button>
+                onClick={() => navigate(location.pathname + '?newTask=true')}>Add Task</button>
 
             </nav>
             <AddTaskModal />
