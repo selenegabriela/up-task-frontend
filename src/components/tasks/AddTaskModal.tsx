@@ -1,6 +1,9 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import TaskForm from './TaskForm';
+import type { TaskFormData } from '@/types/index';
 
 export default function AddTaskModal() {
     const navigate = useNavigate()
@@ -8,6 +11,16 @@ export default function AddTaskModal() {
     const queryParams = new URLSearchParams(location.search);
     const modalTask = queryParams.get('newTask');
     const show = modalTask ? true : false;
+
+    const initialValues : TaskFormData = {
+        name: '',
+        description: ''
+    }
+    const {register, handleSubmit, formState: {errors}} = useForm({defaultValues: initialValues});
+
+    const handleCreateTask = (formData: TaskFormData) => {
+
+    }
 
     return (
         <>
@@ -41,12 +54,27 @@ export default function AddTaskModal() {
                                         as="h3"
                                         className="font-black text-4xl  my-5"
                                     >
-                                        Nueva Tarea
+                                        New Task
                                     </Dialog.Title>
 
                                     <p className="text-xl font-bold">Fill the form and create  {''}
                                         <span className="text-fuchsia-600">a new task</span>
                                     </p>
+                                    <form
+                                        className='mt-10 space-y-3'
+                                        onSubmit={handleSubmit(handleCreateTask)}
+                                        noValidate
+                                    >
+                                        <TaskForm 
+                                            register={register}
+                                            errors={errors}
+                                        />
+                                        <input 
+                                            type="submit"
+                                            value="Add Task"
+                                            className="bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors"
+                                        />
+                                    </form>
 
                                 </Dialog.Panel>
                             </Transition.Child>
