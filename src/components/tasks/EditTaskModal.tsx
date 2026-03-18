@@ -1,8 +1,8 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { type TaskFormData, type Task } from '@/types/index';
-import { useForm } from 'react-hook-form';
+import { useForm, type UseFormReset } from 'react-hook-form';
 import TaskForm from './TaskForm';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateTask } from '@/api/TaskApi';
@@ -11,6 +11,15 @@ import { toast } from 'react-toastify';
 type EditTaskModalProps = {
     data: Task,
     taskId: Task['_id']
+}
+
+function useEditTaskForm(data: Task, reset: UseFormReset<TaskFormData>) {
+    useEffect(() => {
+        reset({
+            name: data.name,
+            description: data.description,
+        });
+    }, [data, reset]);
 }
 
 export default function EditTaskModal({data,taskId}: EditTaskModalProps) {
@@ -42,6 +51,8 @@ export default function EditTaskModal({data,taskId}: EditTaskModalProps) {
             const data = {formData, taskId, projectId}
             mutate(data);
         }
+
+        useEditTaskForm(data, reset);
 
     return (
         <Transition appear show={true} as={Fragment}>
