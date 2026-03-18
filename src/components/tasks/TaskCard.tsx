@@ -3,7 +3,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { Fragment } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTask } from "@/api/TaskApi";
 import { toast } from "react-toastify";
 
@@ -16,11 +16,13 @@ const TaskCard = ({task}: TaskCardProps) => {
     const params = useParams();
     const projectId = params.projectId!
 
+    const queryClient = useQueryClient();
+
     const {mutate} = useMutation({
         mutationFn: deleteTask,
         onSuccess: (data) => {
             toast.success(data);
-
+            queryClient.invalidateQueries({queryKey: ['project', projectId]})
         },
         onError: (error) => {
             toast.error(error.message);
